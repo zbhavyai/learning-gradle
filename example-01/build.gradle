@@ -1,0 +1,28 @@
+task helloWorld {
+    doLast {
+        println("Hello world!")
+    }
+}
+
+task byeWorld {
+    doFirst {
+        println("Bye world!")
+    }
+}
+
+// version defined in gradle.properties
+task printVersion {
+    doLast {
+        println(version)
+    }
+}
+
+//tasks{
+//    register("projectVersion") {
+//        doLast {
+//            println("Project version: test")
+//        }
+//    }
+//}
+
+
