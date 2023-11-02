@@ -1,19 +1,19 @@
-task test {
+tasks.register('test') {
     doLast {
-        println("this is second example")
+        println('this is second example')
     }
 }
 
-task copyDocs(type: Copy) {
-    from "src"
-    into "build/docs"
-    include "**/*md"
+tasks.register('copyDocs', Copy) {
+    from 'src'
+    into 'build/docs'
+    include '**/*md'
     includeEmptyDirs = false
 }
 
-task createZip(type: Zip) {
-    from "build/docs"
-    archiveFileName = "docs.zip"
-    destinationDirectory = file("build/dist")
+tasks.register('createZip', Zip) {
+    from 'build/docs'
+    archiveFileName = 'docs.zip'
+    destinationDirectory = file('build/dist')
     dependsOn copyDocs
 }
