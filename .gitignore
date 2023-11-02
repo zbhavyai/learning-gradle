@@ -19,3 +19,11 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# IDEA (IntelliJ)
+.idea
+
+# dont want to check in gradle wrapper for this project
+gradle
+gradlew.bat
+gradlew
