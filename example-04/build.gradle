@@ -1,0 +1,26 @@
+tasks.register('copyTxt', Copy) {
+    from 'src'
+    into 'build/text'
+    include '**/*.txt'
+    includeEmptyDirs = false
+
+    rename '(.*)\\.txt', '$1.text'
+
+    doLast {
+        println 'Creating TAR archive'
+    }
+}
+
+tasks.register('createArchive') {
+    dependsOn copyTxt
+}
+
+tasks.register('tarTextFiles', Tar) {
+    from 'build/text'
+    setArchiveBaseName('contentssss')
+    setArchiveExtension('tar.gz')
+    setCompression(Compression.GZIP)
+    destinationDirectory = file('build/distributions')
+    into('text')
+    dependsOn createArchive
+}
