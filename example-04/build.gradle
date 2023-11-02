@@ -1,26 +1,25 @@
-tasks.register('copyTxt', Copy) {
-    from 'src'
-    into 'build/text'
-    include '**/*.txt'
-    includeEmptyDirs = false
+apply plugin: 'base'
 
+tasks.register('tarTextFiles', Tar) {
+    from 'src'
+    include '**/*.txt'
+    into 'text'
     rename '(.*)\\.txt', '$1.text'
+    includeEmptyDirs = false
+    compression = Compression.GZIP
+    archiveBaseName = 'my-archive'
+    archiveExtension = 'tar.gz'
+    destinationDirectory = file('build/distributions')
+
+    doFirst {
+        println 'Creating TAR archive'
+    }
 
     doLast {
-        println 'Creating TAR archive'
+        println 'TAR archive created'
     }
 }
 
 tasks.register('createArchive') {
-    dependsOn copyTxt
-}
-
-tasks.register('tarTextFiles', Tar) {
-    from 'build/text'
-    setArchiveBaseName('contentssss')
-    setArchiveExtension('tar.gz')
-    setCompression(Compression.GZIP)
-    destinationDirectory = file('build/distributions')
-    into('text')
-    dependsOn createArchive
+    dependsOn tarTextFiles
 }
